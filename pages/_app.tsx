@@ -17,12 +17,12 @@ export default function App({ Component, pageProps }: AppProps) {
         <Provider store={store}>
             <ToastProvider>
                 <div className={`w-[80%] max-w-[1440px] mx-auto ${ubuntu.variable} font-sans`}>
-                        <FirstScreen />
-                        <div className="bg-primary-light p-6 md:p-10 mb-10 lg:p-14 rounded-xl">
-                            <Component
-                                {...pageProps}
-                            />
-                        </div>
+                    <FirstScreen />
+                    <div className="bg-primary-light p-6 md:p-10 mb-10 lg:p-14 rounded-xl">
+                        <Component
+                            {...pageProps}
+                        />
+                    </div>
                 </div>
             </ToastProvider>
         </Provider>
