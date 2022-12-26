@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        -webkit-tap-highlight-color: transparent;
+        @apply text-[14px] xl:text-[16px]
+    }
+    * {
+        @apply outline-0
+    }
+}
+
+@layer components {
+    .btn {
+        @apply inline-block py-4 px-8 font-bold uppercase bg-primary-accent rounded-2xl text-primary-base hover:bg-yellow-300 transition
+    }
+    .text-title {
+        @apply font-bold text-primary-base text-3xl md:text-4xl
+    }
+    .contact-item {
+        @apply flex items-center space-x-4;
+
+        &__icon {
+            @apply min-w-20 lg:min-w-24 w-20 lg:w-24 h-20 lg:h-24 rounded-full bg-yellow-300 p-6 lg:p-7 text-primary-base
+        }
+
+        &__text {
+            @apply flex flex-col text-primary-base leading-none space-y-2;
+
+            span {
+                @apply font-bold text-xl
+            }
+
+            a {
+                @apply opacity-60 transition-all leading-5 hover:text-yellow-300 hover:opacity-100
+            }
+        }
+    }
+    .form-wrap {
+        @apply flex space-x-4;
+
+        &__input {
+            @apply w-full h-14 rounded-lg bg-transparent border border-gray-200/30 px-5 font-light text-primary-base tracking-wider transition-all duration-500 focus:border-gray-200/60;
+
+            &--textarea {
+                @apply py-4 h-52 resize-none
+            }
+        }
+    }
+}

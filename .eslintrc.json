@@ -1,0 +1,37 @@
+{
+    "extends": [
+        "next/core-web-vitals",
+        "airbnb-base"
+    ],
+    "rules": {
+        "indent": ["error", 4],
+        "comma-dangle": ["error", "never"],
+        "global-require": 0,
+        "import/no-dynamic-require": "off",
+        "import/prefer-default-export": "off",
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "js": "never",
+                "jsx": "never",
+                "ts": "never",
+                "tsx": "never"
+            }
+        ]
+    },
+    "settings": {
+        "import/parsers": {
+            "@typescript-eslint/parser": [".ts", ".tsx", ".js", ".jsx"]
+        },
+        "import/internal-regex": "^@",
+        "import/resolver": {
+            "eslint-import-resolver-custom-alias": {
+                "alias": {
+                    "@/*": "./*"
+                },
+                "extensions": [".ts", ".tsx", ".js", ".jsx"]
+            }
+        }
+    }
+}
