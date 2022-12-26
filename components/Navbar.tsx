@@ -19,7 +19,6 @@ export default function Navbar() {
     const [isRendered, setIsRendered] = useState<boolean>(false);
     const [isResizing, setIsResizing] = useState<boolean>(false);
     const [windowWidth, setWindowWidth] = useState<number>(0);
-    const [windowHeight, setWindowHeight] = useState<number>(0);
     const [hoverLinkIndex, setHoverLinkIndex] = useState<number | null>(null);
     const [pages, setPages] = useState<RenderPageState[]>(
         useSelector((state: RootState) => state.pages)
@@ -27,14 +26,12 @@ export default function Navbar() {
 
     const debounceSetIsResizing = useCallback(debounce(setIsResizing, 300), []);
     const debounceSetWindowWidth = useCallback(debounce(setWindowWidth, 250), []);
-    const debounceSetWindowHeight = useCallback(debounce(setWindowHeight, 250), []);
 
     useEffect(() => {
         const handleResize = () => {
             setIsResizing(true);
 
             debounceSetWindowWidth(window.innerWidth);
-            debounceSetWindowHeight(window.innerHeight);
             debounceSetIsResizing(false);
         };
         window.addEventListener('resize', handleResize);
@@ -70,7 +67,7 @@ export default function Navbar() {
             })
         );
         setIsRendered(true);
-    }, [hoverLinkIndex, isResizing, router.pathname, windowWidth, windowHeight]);
+    }, [hoverLinkIndex, isResizing, router.pathname, windowWidth]);
 
     return (
         <nav
