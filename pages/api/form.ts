@@ -23,11 +23,11 @@ export default function handler(
     axios.get(`https://api.telegram.org/bot${process.env.NEXT_PRIVETE_TELEGRAM_BOT_TOKEN}/sendMessage`, {
         params: {
             chat_id: process.env.NEXT_PRIVETE_TELEGRAM_CHAT_ID,
-            text: `Имя: ${data.name} \n` +
-                `Email: ${data.email} \n` +
-                `Почта: ${data.phone} \n` +
-                `Тема: ${data.subject} \n` +
-                `Сообщение: ${data.message}`
+            text: `Имя: ${data.name} \n`
+                + `Email: ${data.email} \n`
+                + `Почта: ${data.phone} \n`
+                + `Тема: ${data.subject} \n`
+                + `Сообщение: ${data.message}`
         }
     })
         .then(() => {
