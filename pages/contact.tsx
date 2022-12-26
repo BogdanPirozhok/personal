@@ -1,7 +1,40 @@
 import PageTitle from '@/components/PageTitle';
 import DynamicHeroIcon from '@/components/DynamicHeroIcon';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import axios from 'axios';
+import { useState } from 'react';
+import { ContactInputs } from '@/const/interfaces';
+import { useToasts } from 'react-toast-notifications';
+
+const classNames = require('classnames');
 
 export default function Contact() {
+    const { addToast } = useToasts();
+    const [isSendingForm, setIsSendingForm] = useState<boolean>(false);
+
+    const {
+        register, handleSubmit, formState: { errors }, reset
+    } = useForm<ContactInputs>();
+
+    const onSubmit: SubmitHandler<ContactInputs> = (data) => {
+        if (!isSendingForm) {
+            setIsSendingForm(true);
+
+            // TODO: Сделать валидацию на формать емейла и телефонв
+            axios
+                .post('/api/form', { data })
+                .then(() => {
+                    // TODO: Стиль шрифта уведомления
+                    addToast('Спасибо!, я свяжусь с вами в ближайшее время', { appearance: 'success' });
+                    reset();
+                })
+                .catch(() => {
+                    addToast('Что-то пошло не так, пожалуйста повторите попытку позже', { appearance: 'error' });
+                })
+                .finally(() => setIsSendingForm(false));
+        }
+    };
+
     return (
         <div>
             <PageTitle />
@@ -41,19 +74,64 @@ export default function Contact() {
                         </p>
                     </li>
                 </ul>
-                <form action="#" className="w-full md:w-[60%] space-y-6">
+                <form
+                    className="w-full md:w-[60%] space-y-6"
+                    onSubmit={ handleSubmit(onSubmit) }
+                >
                     <div className="form-wrap">
-                        <input type="text" name="name" placeholder="Ваше имя" className="form-wrap__input" />
-                        <input type="email" name="email" placeholder="Ваш E-mail" className="form-wrap__input" />
+                        <input type="text" placeholder="Ваше имя"
+                            className={classNames(
+                                'form-wrap__input',
+                                {
+                                    'form-wrap__input--error': errors.name
+                                }
+                            )}
+                            { ...register('name', { required: true }) }
+                        />
+                        <input type="email" placeholder="Ваш E-mail"
+                            className={classNames(
+                                'form-wrap__input',
+                                {
+                                    'form-wrap__input--error': errors.email
+                                }
+                            )}
+                            { ...register('email', { required: true }) }
+                        />
                     </div>
                     <div className="form-wrap">
-                        <input type="tel" name="phone" placeholder="Номер телефона" className="form-wrap__input" />
-                        <input type="text" name="subject" placeholder="Тема сообщения" className="form-wrap__input" />
+                        <input type="tel" placeholder="Номер телефона"
+                            className={classNames(
+                                'form-wrap__input',
+                                {
+                                    'form-wrap__input--error': errors.phone
+                                }
+                            )}
+                            { ...register('phone', { required: true }) }
+                        />
+                        <input type="text" placeholder="Тема сообщения"
+                            className={classNames(
+                                'form-wrap__input',
+                                {
+                                    'form-wrap__input--error': errors.subject
+                                }
+                            )}
+                            { ...register('subject', { required: true }) }
+                        />
                     </div>
                     <div className="form-wrap">
-                        <textarea name="message" placeholder="Ваше сообщение..." className="form-wrap__input form-wrap__input--textarea" />
+                        <textarea placeholder="Ваше сообщение..."
+                            className={classNames(
+                                'form-wrap__input form-wrap__input--textarea',
+                                {
+                                    'form-wrap__input--error': errors.message
+                                }
+                            )}
+                            { ...register('message', { required: true }) }
+                        />
                     </div>
-                    <button className="btn" type="submit">Отправить</button>
+                    <button className="btn" type="submit">
+                        { isSendingForm ? 'Обработка...' : 'Отправить'}
+                    </button>
                 </form>
             </div>
         </div>

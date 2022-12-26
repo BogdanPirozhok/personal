@@ -30,11 +30,19 @@ interface StackState {
     name: string
     skills: SkillState[]
 }
+interface ContactInputs {
+    name: string
+    email: string
+    phone: string
+    subject: string
+    message: string
+}
 
 export type {
     PageState,
     RenderPageState,
     AboutInfoState,
     SkillState,
-    StackState
+    StackState,
+    ContactInputs
 };

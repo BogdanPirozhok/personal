@@ -47,6 +47,10 @@
             &--textarea {
                 @apply py-4 h-52 resize-none
             }
+
+            &--error {
+                @apply border-red-500 #{!important}
+            }
         }
     }
 }
