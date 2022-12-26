@@ -18,7 +18,7 @@ export default function handler(
     }
 
     // TODO: Сделать валидацию
-    const { data } = req.body;
+    const data: ContactInputs = req.body.data;
 
     axios.get(`https://api.telegram.org/bot${process.env.NEXT_PRIVETE_TELEGRAM_BOT_TOKEN}/sendMessage`, {
         params: {
